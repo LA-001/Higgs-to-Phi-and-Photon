@@ -22,11 +22,11 @@ BR_H = ROOT.RooRealVar("BR_H","BR Higgs",0.000001,0.001)
 
 BR_H_num = ROOT.RooRealVar("BR_H_num","BR Higgs for shape",pow(10,-4))
 
-scale_factor = ROOT.RooFormulaVar("scale_factor","@0/(40*pow(10,15))",lumi)
+scale_factor = ROOT.RooRealVar("scale_factor","scale factor",(3*pow(10,18))/(40*pow(10,15)))
 
 Nbkg = ROOT.RooFormulaVar("Nbkg","@0*586",scale_factor)
-Nsig = ROOT.RooFormulaVar("Nsig","@0*@1*@2*@3*@4",ROOT.RooArgList(lumi,BR_phi,BR_H,eff,cross))
-Nsig_shape = ROOT.RooFormulaVar("Nsig_shape","@0*@1*@2*@3*@4",ROOT.RooArgList(lumi,BR_phi,BR_H_num,eff,cross))
+Nsig = ROOT.RooFormulaVar("Nsig","@0*@1*@2*@3*@4*@5",ROOT.RooArgList(lumi,BR_phi,BR_H,eff,cross,scale_factor))
+Nsig_shape = ROOT.RooFormulaVar("Nsig_shape","@0*@1*@2*@3*@4*@5",ROOT.RooArgList(lumi,BR_phi,BR_H_num,eff,cross,scale_factor))
 
 totPDF = ROOT.RooAddPdf("totPDF","tot pdf", ROOT.RooArgList(sigPDF,bkgPDF) , ROOT.RooArgList(Nsig,Nbkg))
 
@@ -46,7 +46,7 @@ xplot.Draw()
 #canva.SaveAs("foto/tot_3ab.png")
 
 #generate
-data = totPDF_shape.generate(ROOT.RooArgSet(mesonGammaMass),eventi_bkg)
+data = totPDF_shape.generate(ROOT.RooArgSet(mesonGammaMass),eventi_bkg+eventi_sig)
 data.SetName("data")
 
 xplot_gen = mesonGammaMass.frame(50)

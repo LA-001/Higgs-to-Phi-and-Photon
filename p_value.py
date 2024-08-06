@@ -1,7 +1,7 @@
 import ROOT
 
 fTot = ROOT.TFile("Tfile/tot_pdf.root")
-tot = fTot.Get("ws_tot")
+tot = fTot.Get("ws_totPDF")
 
 tot.var("alpha_L").setConstant(1)
 tot.var("alpha_R").setConstant(1)

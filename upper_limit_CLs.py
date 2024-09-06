@@ -86,6 +86,6 @@ print "################"
 
 freq_plot = ROOT.RooStats.HypoTestInverterPlot("HTI_Result_Plot","Frequentist scan result for psi xsec",result)
 
-canva = ROOT.TCanvas("dataCanvas")
+dataCanvas = ROOT.TCanvas("dataCanvas")
 freq_plot.Draw()
 dataCanvas.SaveAs("foto/upperLimit_CLs.png")
